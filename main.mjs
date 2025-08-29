@@ -8,7 +8,6 @@ import Predef from "./Predef.mjs";
 import MutMap from "./MutMap.mjs";
 import Examples from "./Examples.mjs";
 import MLscript from "./MLscript.mjs";
-import StackTrace from "./StackTrace.mjs";
 let Main1;
 (class Main {
   static #query;
@@ -207,34 +206,6 @@ let Main1;
           }
           static toString() { return "codegen"; }
         });
-        (class errorDisplay {
-          static #closeButton;
-          static {
-            tabs.errorDisplay = errorDisplay;
-            let tmp15, tmp16, tmp17, tmp18, tmp19, tmp20, lambda4;
-            tmp15 = runtime.safeCall(globalThis.document.querySelector("dialog#error-display"));
-            this.dialog = tmp15;
-            tmp16 = runtime.safeCall(errorDisplay.dialog.querySelector(".error-type"));
-            this.errorType = tmp16;
-            tmp17 = runtime.safeCall(errorDisplay.dialog.querySelector(".error-message"));
-            this.errorMessage = tmp17;
-            tmp18 = runtime.safeCall(errorDisplay.dialog.querySelector("stack-trace"));
-            this.stackTrace = tmp18;
-            tmp19 = runtime.safeCall(errorDisplay.dialog.querySelector("#close-error-display"));
-            errorDisplay.#closeButton = tmp19;
-            lambda4 = (undefined, function (_, _1) {
-              return runtime.safeCall(errorDisplay.dialog.close())
-            });
-            tmp20 = errorDisplay.#closeButton.addEventListener("click", lambda4);
-          }
-          static show(error) {
-            errorDisplay.errorType.textContent = error.name;
-            errorDisplay.errorMessage.textContent = error.message;
-            errorDisplay.stackTrace.dataset.stackTrace = error.stack;
-            return runtime.safeCall(errorDisplay.dialog.showModal())
-          }
-          static toString() { return "errorDisplay"; }
-        });
       }
       static toString() { return "tabs"; }
     });
@@ -305,104 +276,108 @@ let Main1;
     tmp10 = lambda2;
     tmp11 = Main.#selector.addEventListener("change", tmp10);
     lambda3 = (undefined, function (event) {
-      let tmp15, lambda4, lambda5;
+      let tmp15, tmp16, lambda4, lambda5;
       lambda4 = (undefined, function () {
-        let startTime, res, parser1, elaborator1, resolver1, lowering1, codegen1, elapsedSeconds, problematicStages, scrut, scrut1, scrut2, scrut3, scrut4, scrut5, tmp16, tmp17, tmp18, tmp19, tmp20, tmp21, tmp22, tmp23, tmp24, tmp25, tmp26, tmp27, tmp28, tmp29, tmp30, tmp31, tmp32, tmp33, tmp34, tmp35, tmp36, tmp37, tmp38, tmp39, tmp40, tmp41, tmp42, tmp43, tmp44, lambda6;
-        tmp16 = runtime.safeCall(globalThis.Date.now());
-        startTime = tmp16;
+        let startTime, res, parser1, elaborator1, resolver1, lowering1, codegen1, elapsedSeconds, problematicStages, scrut, scrut1, scrut2, scrut3, scrut4, scrut5, tmp17, tmp18, tmp19, tmp20, tmp21, tmp22, tmp23, tmp24, tmp25, tmp26, tmp27, tmp28, tmp29, tmp30, tmp31, tmp32, tmp33, tmp34, tmp35, tmp36, tmp37, tmp38, tmp39, tmp40, tmp41, tmp42, tmp43, tmp44, tmp45, lambda6;
+        tmp17 = runtime.safeCall(globalThis.Date.now());
+        startTime = tmp17;
         parser1 = Main.tabs.parser.showTraces.checked;
         elaborator1 = Main.tabs.elaborator.showTraces.checked;
         resolver1 = Main.tabs.resolver.showTraces.checked;
         lowering1 = Main.tabs.lowering.showTraces.checked;
         codegen1 = Main.tabs.codegen.showTraces.checked;
-        tmp17 = MLscript.compile(Main.#editor.value, {
+        tmp18 = MLscript.compile(Main.#editor.value, {
         "traces": {
           "parser": parser1, "elaborator": elaborator1, "resolver": resolver1, "lowering": lowering1, "codegen": codegen1
           }
         });
-        res = tmp17;
-        tmp18 = runtime.safeCall(globalThis.Date.now());
-        tmp19 = tmp18 - startTime;
-        tmp20 = tmp19 / 1000;
-        tmp21 = runtime.safeCall(tmp20.toPrecision(3));
-        elapsedSeconds = tmp21;
-        tmp22 = "Compilation took " + elapsedSeconds;
-        tmp23 = tmp22 + " seconds.";
-        tmp24 = runtime.safeCall(globalThis.console.log(tmp23));
-        tmp25 = runtime.safeCall(globalThis.console.log(res));
+        res = tmp18;
+        tmp19 = runtime.safeCall(globalThis.Date.now());
+        tmp20 = tmp19 - startTime;
+        tmp21 = tmp20 / 1000;
+        tmp22 = runtime.safeCall(tmp21.toPrecision(3));
+        elapsedSeconds = tmp22;
+        tmp23 = "Compilation took " + elapsedSeconds;
+        tmp24 = tmp23 + " seconds.";
+        tmp25 = runtime.safeCall(globalThis.console.log(tmp24));
+        tmp26 = runtime.safeCall(globalThis.console.log(res));
         problematicStages = [];
         scrut = res.typer.diagnostics.length > 0;
         if (scrut === true) {
-          tmp26 = runtime.safeCall(problematicStages.push("typer"));
-        } else {
-          tmp26 = runtime.Unit;
-        }
-        scrut1 = res.parser.diagnostics.length > 0;
-        if (scrut1 === true) {
-          tmp27 = runtime.safeCall(problematicStages.push("parser"));
+          tmp27 = runtime.safeCall(problematicStages.push("typer"));
         } else {
           tmp27 = runtime.Unit;
         }
-        scrut2 = res.elaborator.diagnostics.length > 0;
-        if (scrut2 === true) {
-          tmp28 = runtime.safeCall(problematicStages.push("elaborator"));
+        scrut1 = res.parser.diagnostics.length > 0;
+        if (scrut1 === true) {
+          tmp28 = runtime.safeCall(problematicStages.push("parser"));
         } else {
           tmp28 = runtime.Unit;
         }
-        scrut3 = res.resolver.diagnostics.length > 0;
-        if (scrut3 === true) {
-          tmp29 = runtime.safeCall(problematicStages.push("resolver"));
+        scrut2 = res.elaborator.diagnostics.length > 0;
+        if (scrut2 === true) {
+          tmp29 = runtime.safeCall(problematicStages.push("elaborator"));
         } else {
           tmp29 = runtime.Unit;
         }
-        scrut4 = res.lowering.diagnostics.length > 0;
-        if (scrut4 === true) {
-          tmp30 = runtime.safeCall(problematicStages.push("lowering"));
+        scrut3 = res.resolver.diagnostics.length > 0;
+        if (scrut3 === true) {
+          tmp30 = runtime.safeCall(problematicStages.push("resolver"));
         } else {
           tmp30 = runtime.Unit;
         }
-        scrut5 = res.codegen.diagnostics.length > 0;
-        if (scrut5 === true) {
-          tmp31 = runtime.safeCall(problematicStages.push("code generation"));
+        scrut4 = res.lowering.diagnostics.length > 0;
+        if (scrut4 === true) {
+          tmp31 = runtime.safeCall(problematicStages.push("lowering"));
         } else {
           tmp31 = runtime.Unit;
         }
+        scrut5 = res.codegen.diagnostics.length > 0;
+        if (scrut5 === true) {
+          tmp32 = runtime.safeCall(problematicStages.push("code generation"));
+        } else {
+          tmp32 = runtime.Unit;
+        }
         Main.tabs.typer.output.innerHTML = res.typer.simplifiedType;
-        tmp32 = Main.showDiagnostics(Main.tabs.typer.diagnostics, res.typer.diagnostics, problematicStages);
+        tmp33 = Main.showDiagnostics(Main.tabs.typer.diagnostics, res.typer.diagnostics, problematicStages);
         Main.tabs.parser.traces.innerHTML = res.parser.traces;
-        tmp33 = Main.showDiagnostics(Main.tabs.parser.diagnostics, res.parser.diagnostics, problematicStages);
+        tmp34 = Main.showDiagnostics(Main.tabs.parser.diagnostics, res.parser.diagnostics, problematicStages);
         Main.tabs.parser.trees.innerHTML = "";
         lambda6 = (undefined, function (tree) {
           return Main.addCollapsibleTree(Main.tabs.parser.trees, tree)
         });
-        tmp34 = Iter.each(res.parser.trees, lambda6);
+        tmp35 = Iter.each(res.parser.trees, lambda6);
         Main.tabs.elaborator.traces.innerHTML = res.elaborator.traces;
         Main.tabs.elaborator.tree.innerHTML = "";
-        tmp35 = Main.addCollapsibleTree(Main.tabs.elaborator.tree, res.elaborator.tree);
-        tmp36 = Main.showDiagnostics(Main.tabs.elaborator.diagnostics, res.elaborator.diagnostics, problematicStages);
+        tmp36 = Main.addCollapsibleTree(Main.tabs.elaborator.tree, res.elaborator.tree);
+        tmp37 = Main.showDiagnostics(Main.tabs.elaborator.diagnostics, res.elaborator.diagnostics, problematicStages);
         Main.tabs.resolver.traces.innerHTML = res.resolver.traces;
         Main.tabs.resolver.tree.innerHTML = "";
-        tmp37 = Main.addCollapsibleTree(Main.tabs.resolver.tree, res.resolver.tree);
-        tmp38 = Main.showDiagnostics(Main.tabs.resolver.diagnostics, res.resolver.diagnostics, problematicStages);
+        tmp38 = Main.addCollapsibleTree(Main.tabs.resolver.tree, res.resolver.tree);
+        tmp39 = Main.showDiagnostics(Main.tabs.resolver.diagnostics, res.resolver.diagnostics, problematicStages);
         Main.tabs.lowering.traces.innerHTML = res.lowering.traces;
         Main.tabs.lowering.tree.innerHTML = "";
-        tmp39 = Main.addCollapsibleTree(Main.tabs.lowering.tree, res.lowering.tree);
-        tmp40 = Main.showDiagnostics(Main.tabs.lowering.diagnostics, res.lowering.diagnostics, problematicStages);
-        tmp41 = runtime.safeCall(res.codegen.vars.trim());
-        tmp42 = tmp41 + "\n";
-        tmp43 = runtime.safeCall(res.codegen.code.trim());
-        tmp44 = tmp42 + tmp43;
-        Main.tabs.codegen.output.innerHTML = tmp44;
+        tmp40 = Main.addCollapsibleTree(Main.tabs.lowering.tree, res.lowering.tree);
+        tmp41 = Main.showDiagnostics(Main.tabs.lowering.diagnostics, res.lowering.diagnostics, problematicStages);
+        tmp42 = runtime.safeCall(res.codegen.vars.trim());
+        tmp43 = tmp42 + "\n";
+        tmp44 = runtime.safeCall(res.codegen.code.trim());
+        tmp45 = tmp43 + tmp44;
+        Main.tabs.codegen.output.innerHTML = tmp45;
         Main.tabs.codegen.traces.innerHTML = res.codegen.traces;
         return Main.showDiagnostics(Main.tabs.codegen.diagnostics, res.codegen.diagnostics, problematicStages)
       });
       tmp15 = lambda4;
       lambda5 = (undefined, function (error) {
-        let tmp16;
-        tmp16 = runtime.safeCall(globalThis.console.log(error));
-        return Main.tabs.errorDisplay.show(error)
+        let errorDisplay, tmp17, tmp18, tmp19;
+        tmp17 = runtime.safeCall(globalThis.console.log(error));
+        tmp18 = runtime.safeCall(globalThis.document.createElement("error-display"));
+        errorDisplay = tmp18;
+        tmp19 = runtime.safeCall(errorDisplay.setError(error));
+        return runtime.safeCall(Main.#outputPanel.appendChild(errorDisplay))
       });
-      return Runtime.try_catch(tmp15, lambda5)
+      tmp16 = lambda5;
+      return Runtime.try_catch(tmp15, tmp16)
     });
     tmp12 = Main.#parseButton.addEventListener("click", lambda3);
     tmp13 = new globalThis.RegExp("^(\\s*)");
@@ -532,8 +507,6 @@ let Main1;
   }
   static showDiagnostics(elems, diagnostics6, problematicStages) {
     let scrut, tmp, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7;
-    elems.output.innerHTML = "";
-    elems.text.innerHTML = "";
     if (globalThis.Array.isArray(diagnostics6) && diagnostics6.length === 0) {
       if (globalThis.Array.isArray(problematicStages) && problematicStages.length === 0) {
         elems.text.innerHTML = "<em>Everything went smoothly, without any problems.</em>";
