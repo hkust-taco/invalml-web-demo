@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <div id="input">
+      <header class="toolbar">
+        <button class="button" id="parse">Compile</button>
+        <select class="select" id="example"></select>
+        <div class="compile-time-report"></div>
+      </header>
+      <textarea id="editor" spellcheck="false" autocapitalize="off" wrap="off"></textarea>
+    </div>
+    <div id="output" class="tabs">
+      <input type="radio" id="radio-typer" name="tabgroup" checked>
+      <label for="radio-typer">Typer</label>
+
+      <input type="radio" id="radio-parser" name="tabgroup">
+      <label for="radio-parser">Parser</label>
+
+      <input type="radio" id="radio-elaborator" name="tabgroup">
+      <label for="radio-elaborator">Elaborator</label>
+
+      <input type="radio" id="radio-resolver" name="tabgroup">
+      <label for="radio-resolver">Resolver</label>
+
+      <input type="radio" id="radio-lowering" name="tabgroup">
+      <label for="radio-lowering">Lowering</label>
+
+      <input type="radio" id="radio-code-generation" name="tabgroup">
+      <label for="radio-code-generation">Code Generation</label>
+
+      <div class="tab-content" id="tab-typer">
+        <h3>Typer Output</h3>
+        <pre><code class="output"><em>Click the "Compile" button.</em></code></code></pre>
+        <hr>
+        <h3>Diagnostics</h3>
+        <div class="diagnostics">
+          <pre><code class="output"></code></pre>
+          <div class="text"><em>Click the "Compile" button.</em></div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-parser">
+        <h3>Diagnostics</h3>
+        <div class="diagnostics">
+          <pre><code class="output"></code></pre>
+          <div class="text"><em>Click the "Compile" button.</em></div>
+        </div>
+        <hr>
+        <header class="tree-display">
+          <h3>Parsed Trees</h3>
+          <div class="hint">Tips: You can click to open or close the nodes.</div>
+        </header>
+        <div class="trees"><em>Click the "Compile" button.</em></div>
+        <hr>
+        <header class="traces">
+          <h3>Debug Traces</h3>
+          <div>
+            <input type="checkbox" id="show-traces">
+            <label for="show-traces">Record and show traces</label>
+          </div>
+        </header>
+        <pre><code class="traces"></code></pre>
+      </div>
+      <div class="tab-content" id="tab-elaborator">
+        <h3>Diagnostics</h3>
+        <div class="diagnostics">
+          <pre><code class="output"></code></pre>
+          <div class="text"><em>Click the "Compile" button.</em></div>
+        </div>
+        <hr>
+        <header class="tree-display">
+          <h3>Elaborated Tree</h3>
+          <div class="hint">Tips: You can click to open or close the nodes.</div>
+        </header>
+        <div class="tree"><em>Click the "Compile" button.</em></div>
+        <hr>
+        <header class="traces">
+          <h3>Debug Traces</h3>
+          <div>
+            <input type="checkbox" id="show-traces">
+            <label for="show-traces">Record and show traces</label>
+          </div>
+        </header>
+        <pre><code class="traces"></code></pre>
+      </div>
+      <div class="tab-content" id="tab-resolver">
+        <h3>Diagnostics</h3>
+        <div class="diagnostics">
+          <pre><code class="output"></code></pre>
+          <div class="text"><em>Click the "Compile" button.</em></div>
+        </div>
+        <hr>
+        <header class="tree-display">
+          <h3>Elaborated Tree with Resolved Symbols</h3>
+          <div class="hint">Tips: You can click to open or close the nodes.</div>
+        </header>
+        <div class="tree"><em>Click the "Compile" button.</em></div>
+        <hr>
+        <header class="traces">
+          <h3>Debug Traces</h3>
+          <div>
+            <input type="checkbox" id="show-traces">
+            <label for="show-traces">Record and show traces</label>
+          </div>
+        </header>
+        <pre><code class="traces"></code></pre>
+      </div>
+      <div class="tab-content" id="tab-lowering">
+        <h3>Diagnostics</h3>
+        <div class="diagnostics">
+          <pre><code class="output"></code></pre>
+          <div class="text"><em>Click the "Compile" button.</em></div>
+        </div>
+        <hr>
+        <header class="tree-display">
+          <h3>Lowered Block</h3>
+          <div class="hint">Tips: You can click to open or close the nodes.</div>
+        </header>
+        <div class="tree"><em>Click the "Compile" button.</em></div>
+        <hr>
+        <header class="traces">
+          <h3>Debug Traces</h3>
+          <div>
+            <input type="checkbox" id="show-traces">
+            <label for="show-traces">Record and show traces</label>
+          </div>
+        </header>
+        <pre><code class="traces"></code></pre>
+      </div>
+      <div class="tab-content" id="tab-code-generation">
+        <h3>JavaScript Code</h3>
+        <pre><code class="output"><em>Click the "Compile" button.</em></code></pre>
+        <hr>
+        <h3>Diagnostics</h3>
+        <div class="diagnostics">
+          <pre><code class="output"></code></pre>
+          <div class="text"><em>Click the "Compile" button.</em></div>
+        </div>
+        <hr>
+        <header class="traces">
+          <h3>Debug Traces</h3>
+          <div>
+            <input type="checkbox" id="show-traces">
+            <label for="show-traces">Record and show traces</label>
+          </div>
+        </header>
+        <pre><code class="traces"></code></pre>
+      </div>
+      <dialog id="error-display" aria-roledescription="dialog">
+        <details>
+          <summary>
+            Something in your input program is not yet handled by the compiler. Please report it if that's unexpected.
+          </summary>
+          <header class="caption">
+            <span class="error-type">ErrorType</span>
+            <span class="error-message">This is an error message.</span>
+          </header>
+          <stack-trace data-stack-trace=""></stack-trace>
+        </details>
+        <footer>
+          <button class="button" id="close-error-display">Close</button>
+        </footer>
+      </dialog>
+    </div>
+  </div>
+  <template id="stack-trace">
+    <style>
+      ul.stack-trace {
+        padding-left: 1.5rem;
+        margin: 0.5rem 0 1rem;
+      }
+
+      ul.stack-trace li {
+        line-height: 1.25;
+      }
+
+      ul.stack-trace li:not(:last-child) {
+        margin-bottom: 0.25rem;
+      }
+
+      ul.stack-trace li code.name {
+        margin: 0;
+        font-size: 0.875rem;
+        font-family: var(--monospace);
+        word-break: break-all;
+        overflow-wrap: break-all;
+        white-space: pre-wrap;
+        background-color: #f0f0f0;
+        padding: 0 0.125rem;
+        color: #2c2c2c;
+      }
+
+      ul.stack-trace li a.file {
+        margin: 0;
+        color: #000000;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.125rem;
+      }
+    </style>
+    <ul class="stack-trace"></ul>
+  </template>
+  <template id="stack-trace-name-and-file">
+    <li>at <code class="name"></code> in <a class="file"></a></li>
+  </template>
+  <template id="stack-trace-file-only">
+    <li>at <a class="file"></a></li>
+  </template>
+  <script type="module" src="./main.mjs"></script>
+</body>
+
+</html>
